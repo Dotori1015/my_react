@@ -1,0 +1,118 @@
+#header {
+    @include position_fix;
+    z-index: 10000;
+}
+.header_inner {
+    @include flex_between;
+    background-color: rgba(116, 99, 99, 0.1);
+    backdrop-filter: blur(4px);
+    padding: 1rem;
+
+    .header_logo {
+        font-size: 12px;
+        text-align: center;
+        text-transform: uppercase;
+        line-height: 1;
+
+        em {
+            display: block;
+            font-size: 10px;
+            color: var(--black200);
+        }
+    }
+    .header_nav {
+
+        @media (max-width:800px) {
+            display: none;            
+
+            &.show {
+                display: block;
+
+                ul {
+                    display: block;
+                    position: absolute;
+                    right: 0;
+                    top: 68px;
+                    background-color: rgba(116, 99, 99, 0.1);
+                    backdrop-filter: blur(4px);
+                    z-index: 1000;
+                    border-radius: 0 0 0 10px;
+
+                    li {
+                        display: block;
+                        text-align: right;
+                        
+                        a {display: inline-block;}
+
+                    }
+                }
+            }
+            &.show + .header_mobnav span::before {
+                width: 20px;
+            }
+            &.show + .header_mobnav span::after {
+                width: 20px;
+            }
+        }
+
+        ul {
+
+            li{
+                display: inline;
+
+                a{
+                    text-transform: uppercase;
+                    font-size: 14px;
+                    padding: 14px;
+                    position: relative;
+
+                    &::before {
+                        content: "";
+                        width: calc(100% - 28px);
+                        height: 1px;
+                        background-color: var(--black);
+                        position: absolute;
+                        left: 14px;
+                        bottom: 10px;
+                        transform: scaleX(0);
+                        transition: all 0.3s;
+                    }
+                    &:hover::before {transform: scaleX(1);}
+                }
+            } /* li */
+        }
+    }
+    .header_mobnav {
+        display: none;
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        // background-color: #ccc;
+
+        @media (max-width:800px) {
+            display: block;
+        }
+
+        span {
+            display: block;
+            width: 40px;
+            height: 2px;
+            background-color: var(--black);
+            margin-top: 19px;
+            position: relative;
+
+            &::before,
+            &::after {
+                content: "";
+                position: absolute;
+                width: 100%;
+                height: 2px;
+                background-color: var(--black);
+                transition: width 0.3s;
+            }
+
+            &::before {top: 6px; right: 0;}
+            &::after {bottom: 6px; left: 0;}
+        }
+    }
+}
